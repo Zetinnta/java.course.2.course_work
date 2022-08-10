@@ -1,6 +1,8 @@
 package pro.sky.java.course2.course_work.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pro.sky.java.course2.course_work.data.Question;
 import pro.sky.java.course2.course_work.service.QuestionService;
@@ -17,10 +19,21 @@ public class JavaQuestionController {
         this.questionService = questionService;
     }
 
-    public Question addQuestion(String question, String answer);
+    @GetMapping("/add")
+    public Question addQuestion(@RequestParam("question") String question,
+                                @RequestParam("answer") String answer) {
+        return questionService.add(question, answer);
+    }
 
-    public Collection<Question> getQuestions();
+    @GetMapping
+    public Collection<Question> getQuestions() {
+        return questionService.getAll();
+    }
 
-    public Question removeQuestion(String question, String answer);
+    @GetMapping("/remove")
+    public Question removeQuestion(@RequestParam("question") String question,
+                                   @RequestParam("answer") String answer) {
+        return questionService.remove(new Question(question, answer));
+    }
 
 }

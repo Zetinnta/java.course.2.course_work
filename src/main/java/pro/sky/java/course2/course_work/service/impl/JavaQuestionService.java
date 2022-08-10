@@ -14,19 +14,14 @@ public class JavaQuestionService implements QuestionService {
     private final Set<Question> questions;
     private final Random random;
 
-    public JavaQuestionService(Random random) {
+    public JavaQuestionService() {
         this.questions = new HashSet<>();
-        this.random = random;
+        this.random = new Random();
     }
 
     @Override
     public Question add(String question, String answer) {
-        Question q = new Question(question, answer);
-        if (questions.contains(q)) {
-            throw new QuestionAlreadyExistException();
-        }
-        questions.add(q);
-        return q;
+        return add(new Question(question, answer));
     }
 
     @Override
